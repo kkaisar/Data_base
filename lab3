@@ -1,0 +1,82 @@
+1)	DDL - this is a group of data definition operators. Using the operators included in this group, we define the structure of the database and work with the objects of this database
+DML - it is a group of operators for manipulating data. With the help of these operators, we can add, modify, delete and unload data from the database
+a)	CREATE - used to create database objects
+AFTER - used to change database objects
+DROP - used to remove database objects
+b)	SELECT - fetches data
+INSERT - adds new data
+UPDATE - changes existing data
+DELETE - deletes data
+
+2)
+CREATE TABLE customers(
+    id integer primary key,
+    full_name varchar(50),
+    timestamp timestamp with time zone,
+    delivery_address text
+);
+CREATE TABLE products(
+    id varchar primary key,
+    name varchar,
+    description text,
+    price double precision
+);
+CREATE TABLE orders(
+    code integer primary key ,
+    customer_id integer,
+    total_sum double precision,
+    is_paid boolean,
+    foreign key (customer_id) references customers(id)
+);
+CREATE TABLE order_items(
+    order_code integer,
+    product_id varchar,
+    quantity  integer,
+    foreign key (product_id) references  products(id),
+    foreign key (order_code) references  orders(code)
+
+);
+select * from customers;
+select * from products;
+select * from orders;
+select * from order_items;
+
+3) 
+
+CREATE TABLE students(
+    full_name varchar primary key ,
+    age integer,
+    birth_date date,
+    gender varchar,
+    average_grade integer,
+    info_about_student varchar,
+    dormitory boolean
+);
+DROP TABLE instuctors;
+CREATE TABLE instuctors (
+    full_name varchar primary key ,
+    lang varchar,
+    work_exp text,
+    remote_lessons boolean
+);
+CREATE TABLE participation(
+    lesson_title text,
+    teaching_instructor varchar,
+    studying_student varchar,
+    room_number int,
+    foreign key (teaching_instructor) references instuctors(full_name),
+    foreign key (studying_student) references  students(full_name)
+);
+select * from students;
+select * from instuctors;
+select * from participation;
+
+4)
+INSERT INTO products(id,name,description,price) values ('123','OMEN','24.','120');
+select * from products;
+update products
+set price = 140
+where id = '123';
+delete from products
+where name = 'OMEN';
+
